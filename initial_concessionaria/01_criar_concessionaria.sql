@@ -1,7 +1,17 @@
+DROP DATABASE IF EXISTS `concessionaria`;
 CREATE DATABASE `concessionaria`;
 USE `concessionaria`;
 
 DROP TABLE IF EXISTS `filial`;
+DROP TABLE IF EXISTS `categoria`;
+DROP TABLE IF EXISTS `marca`;
+DROP TABLE IF EXISTS `modelo`;
+DROP TABLE IF EXISTS `aquisicao`;
+DROP TABLE IF EXISTS `item_aquisicao`;
+DROP TABLE IF EXISTS `venda`;
+DROP TABLE IF EXISTS `item_venda`;
+DROP TABLE IF EXISTS `reparo`;
+DROP TABLE IF EXISTS `item_reparo`;
 
 CREATE TABLE `filial` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -11,6 +21,29 @@ CREATE TABLE `filial` (
   `pais` varchar(100) NOT NULL,
   `continente` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `categoria` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `qtd_ocup` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `marca` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `modelo` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `id_marca` int(10) unsigned NOT NULL,
+  `id_categoria` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_categoria`) REFERENCES categoria(`id`),
+  FOREIGN KEY (`id_marca`) REFERENCES marca(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `venda` (
@@ -38,29 +71,6 @@ CREATE TABLE `reparo` (
   `id_filial` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_filial`) REFERENCES filial(`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `categoria` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `qtd_ocup` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `marca` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `modelo` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `id_marca` int(10) unsigned NOT NULL,
-  `id_categoria` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_categoria`) REFERENCES categoria(`id`),
-  FOREIGN KEY (`id_marca`) REFERENCES marca(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `item_aquisicao` (
