@@ -47,12 +47,20 @@ CREATE TABLE `categoria` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `marca` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `modelo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
+  `id_marca` int(10) unsigned NOT NULL,
   `id_categoria` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`id_categoria`) REFERENCES categoria(`id`)
+  FOREIGN KEY (`id_categoria`) REFERENCES categoria(`id`),
+  FOREIGN KEY (`id_marca`) REFERENCES marca(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `item_aquisicao` (
