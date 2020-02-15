@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  db:
+    image: luizlaljr/trabalho_bd_daniel
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: trabalho-db
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - "trabalho:/var/lib/mysql"
+
+volumes:
+  trabalho:
