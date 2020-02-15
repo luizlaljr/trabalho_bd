@@ -1,4 +1,4 @@
-CREATE FUNCTION `Get_Pk_Dim_Filial` (campo varchar(100))
+CREATE FUNCTION `busca_Pk_Dim_Filial` (campo varchar(100))
 RETURNS int(10)
 BEGIN
 	DECLARE pk int(10);

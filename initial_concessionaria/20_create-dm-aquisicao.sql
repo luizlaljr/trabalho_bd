@@ -8,15 +8,6 @@ DROP TABLE IF EXISTS `dim_geo`;
 DROP TABLE IF EXISTS `dim_tempo`;
 DROP TABLE IF EXISTS `dim_modelo`;
 
-create table `fato_aquisicao` (
- `id_filial` int(10) unsigned NOT NULL,
- `id_tempo` int(10) unsigned NOT NULL,
- `id_item` int(10) unsigned NOT NULL,
-  `quantidade` int(10),
-  `valor_total` int(10),
-  PRIMARY KEY (`id_filial`, `id_tempo`, `id_item`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `dim_geo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT, 
   `continente` varchar(100),
@@ -44,6 +35,19 @@ CREATE TABLE `dim_modelo` (
   `categoria` varchar(100),
   `nome` varchar(100),  
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table `fato_aquisicao` (
+ `id_filial` int(10) unsigned NOT NULL,
+ `id_tempo` int(10) unsigned NOT NULL,
+ `id_item` int(10) unsigned NOT NULL,
+  `quantidade` int(10),
+  `valor_total` int(10),
+  PRIMARY KEY (`id_filial`, `id_tempo`, `id_item`),
+  FOREIGN KEY (`id_filial`) REFERENCES dim_filial(`id`),
+  FOREIGN KEY (`id_filial`) REFERENCES dim_geo(`id`),
+  FOREIGN KEY (`id_filial`) REFERENCES dim_tempo(`id`),
+  FOREIGN KEY (`id_filial`) REFERENCES dim_modelo(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET character_set_client = utf8;
